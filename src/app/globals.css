@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0d0d0d;
+  --color-bg-card: #161616;
+  --color-bg-card-hover: #1c1c1c;
+  --color-gold: #c9a84c;
+  --color-gold-dim: #8a7233;
+  --color-gold-glow: rgba(201, 168, 76, 0.15);
+  --color-text-primary: #e0dcd4;
+  --color-text-dim: #9a9590;
+  --color-border: #2a2520;
+  --color-status-clear: #5a9a5a;
+  --color-status-active: #b85450;
+  --color-status-partial: #c9a84c;
+  --font-family-serif: Georgia, "Times New Roman", serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Status button animations */
+.status-btn { transition: all 0.2s ease; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+/* Prayer text formatting */
+.prayer-text p { margin-bottom: 0.75rem; }
+.prayer-text blockquote {
+  border-left: 2px solid var(--color-gold-dim);
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  color: var(--color-text-dim);
+}
