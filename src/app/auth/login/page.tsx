@@ -50,9 +50,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-5">
-      <div className="w-12 h-12 rounded-full border-2 border-gold flex items-center justify-center text-gold text-xl mb-6">
-        ✦
-      </div>
+      <div className="text-gold text-3xl mb-6">✝</div>
       <h1 className="font-serif text-gold text-lg tracking-widest uppercase mb-8">
         Sign In
       </h1>

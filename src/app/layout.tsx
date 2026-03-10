@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sleep Deliverance Diagnostic — CRQH Inner Align Protocol",
+  title: "Divine Alignment — Sleep Deliverance Diagnostic",
   description:
-    "Cellular Resonance Quantum Healing diagnostic and prayer platform for practitioners and clients.",
+    "Spirit deliverance ministry tool for practitioners and clients. By Enlightuned Studios.",
 };
 
 export default function RootLayout({
@@ -14,6 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-screen font-sans">{children}</body>
     </html>
   );
