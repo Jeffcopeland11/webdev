@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep Deliverance Diagnostic — CRQH Inner Align Protocol</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg-card: #161616;
+      --bg-card-hover: #1c1c1c;
+      --gold: #c9a84c;
+      --gold-dim: #8a7233;
+      --gold-glow: rgba(201, 168, 76, 0.15);
+      --text: #e0dcd4;
+      --text-dim: #9a9590;
+      --border: #2a2520;
+      --success: #5a9a5a;
+      --fail: #b85450;
+      --partial: #c9a84c;
+      --radius: 8px;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --font-serif: Georgia, 'Times New Roman', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .app-header {
+      text-align: center;
+      padding: 2.5rem 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #121210 0%, var(--bg) 100%);
+    }
+    .app-header .sigil {
+      width: 48px; height: 48px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      color: var(--gold);
+      font-size: 1.4rem;
+    }
+    .app-header h1 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .app-header .subtitle {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .app-header .tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-top: 1rem;
+      max-width: 500px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.5;
+    }
+
+    /* ── Navigation Tabs ── */
+    .nav-tabs {
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab {
+      flex: 0 0 auto;
+      padding: 0.75rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: none;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      font-family: var(--font);
+    }
+    .nav-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .nav-tab:hover { color: var(--text); }
+
+    /* ── Sections ── */
+    .section { display: none; padding: 1.25rem; max-width: 640px; margin: 0 auto; }
+    .section.active { display: block; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+    .section-num {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 0.5rem;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+
+    /* ── Accordion ── */
+    .accordion { margin-bottom: 0.5rem; }
+    .accordion-trigger {
+      width: 100%;
+      text-align: left;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: var(--font);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .accordion-trigger:hover { background: var(--bg-card-hover); }
+    .accordion-trigger .arrow {
+      color: var(--gold-dim);
+      transition: transform 0.25s;
+      font-size: 0.7rem;
+    }
+    .accordion.open .accordion-trigger { border-color: var(--gold-dim); border-bottom-radius: 0; border-radius: var(--radius) var(--radius) 0 0; }
+    .accordion.open .accordion-trigger .arrow { transform: rotate(180deg); }
+    .accordion-body {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .accordion.open .accordion-body { display: block; }
+
+    /* ── Prayer Cards ── */
+    .prayer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+    .prayer-header {
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .prayer-header:hover { background: var(--bg-card-hover); }
+    .prayer-header .label {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+    .prayer-header .tap-hint {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .prayer-card.open .prayer-header .tap-hint { display: none; }
+    .prayer-body {
+      display: none;
+      padding: 0 1rem 1rem;
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    .prayer-card.open .prayer-body { display: block; }
+    .prayer-card.open .prayer-header { border-bottom: 1px solid var(--border); }
+    .prayer-body p { margin-bottom: 0.75rem; }
+    .prayer-body .hebrew { color: var(--gold); font-style: italic; }
+    .prayer-body .instruction {
+      font-family: var(--font);
+      font-size: 0.75rem;
+      color: var(--gold-dim);
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+    .prayer-body .command-text { color: var(--text); font-weight: 500; }
+
+    /* ── Checklist ── */
+    .checklist-module {
+      margin-bottom: 1.5rem;
+    }
+    .module-title {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .module-instruction {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(42,37,32,0.5);
+    }
+    .check-item:last-child { border-bottom: none; }
+    .status-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      font-family: var(--font);
+    }
+    .status-btn[data-status="clear"] { border-color: var(--success); color: var(--success); background: rgba(90,154,90,0.1); }
+    .status-btn[data-status="active"] { border-color: var(--fail); color: var(--fail); background: rgba(184,84,80,0.1); }
+    .status-btn[data-status="partial"] { border-color: var(--partial); color: var(--partial); background: rgba(201,168,76,0.1); }
+    .check-label {
+      font-size: 0.82rem;
+      flex: 1;
+    }
+    .check-notes {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.75rem;
+      color: var(--text);
+      font-family: var(--font);
+      margin-top: 0.35rem;
+      resize: none;
+      display: none;
+    }
+    .check-item.has-status .check-notes { display: block; }
+    .check-item-wrap { flex: 1; }
+
+    /* ── Branch items (diagnostic tree) ── */
+    .branch {
+      margin-bottom: 0.75rem;
+    }
+    .branch-header {
+      width: 100%;
+      text-align: left;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: var(--font);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .branch-header:hover { background: var(--bg-card-hover); }
+    .branch-num {
+      font-size: 0.6rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .branch-label { flex: 1; }
+    .branch-arrow {
+      color: var(--gold-dim);
+      font-size: 0.65rem;
+      transition: transform 0.25s;
+    }
+    .branch.open .branch-header { border-color: var(--gold-dim); border-radius: var(--radius) var(--radius) 0 0; }
+    .branch.open .branch-arrow { transform: rotate(180deg); }
+    .branch-body {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 0.5rem 0.75rem;
+    }
+    .branch.open .branch-body { display: block; }
+
+    /* ── Protocol Link ── */
+    .protocol-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold);
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 0.4rem 0.7rem;
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      background: var(--gold-glow);
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .protocol-link:hover { background: rgba(201,168,76,0.25); }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 500;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-dim);
+      border-radius: var(--radius) var(--radius) 0 0;
+      width: 100%;
+      max-width: 640px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 1.5rem 1.25rem;
+      animation: slideUp 0.3s ease-out;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-close {
+      float: right;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .modal-body {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--text-dim);
+    }
+    .modal-body p { margin-bottom: 0.65rem; }
+    .modal-body .prayer-text {
+      font-family: var(--font-serif);
+      color: var(--text);
+      font-style: italic;
+      padding: 0.75rem;
+      border-left: 2px solid var(--gold-dim);
+      margin: 0.75rem 0;
+      line-height: 1.7;
+    }
+    .modal-body h4 {
+      color: var(--gold);
+      font-size: 0.8rem;
+      margin: 1rem 0 0.4rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Notes Template ── */
+    .notes-form { margin-top: 1rem; }
+    .notes-form label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+      margin-top: 0.75rem;
+    }
+    .notes-form textarea, .notes-form input[type="text"], .notes-form input[type="date"] {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.82rem;
+      color: var(--text);
+      font-family: var(--font);
+    }
+    .notes-form textarea { min-height: 60px; resize: vertical; }
+    .notes-form input:focus, .notes-form textarea:focus { outline: none; border-color: var(--gold-dim); }
+
+    /* ── Summary bar ── */
+    .summary-bar {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem;
+    }
+    .summary-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .summary-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .summary-dot.clear { background: var(--success); }
+    .summary-dot.active { background: var(--fail); }
+    .summary-dot.partial { background: var(--partial); }
+    .summary-dot.untested { background: var(--border); }
+
+    /* ── Footer ── */
+    .app-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    .app-footer .gold { color: var(--gold-dim); }
+
+    /* ── Utility ── */
+    .mt-1 { margin-top: 1rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .text-dim { color: var(--text-dim); }
+    .text-gold { color: var(--gold); }
+    .text-sm { font-size: 0.78rem; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+
+    @media (min-width: 640px) {
+      .app-header { padding: 3rem 2rem 2.5rem; }
+      .app-header h1 { font-size: 1.6rem; }
+      .section { padding: 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<header class="app-header">
+  <div class="sigil">✦</div>
+  <h1>Sleep Deliverance Diagnostic</h1>
+  <div class="subtitle">CRQH &mdash; Cellular Resonance Quantum Healing</div>
+  <div class="tagline">Inner Align Protocol &mdash; completed in the hour before sleep, when the veil between conscious and subconscious is thinnest.</div>
+</header>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<nav class="nav-tabs" id="navTabs">
+  <button class="nav-tab active" data-tab="orientation">Orientation</button>
+  <button class="nav-tab" data-tab="checklist">Checklist</button>
+  <button class="nav-tab" data-tab="diagnostic">Diagnostic</button>
+  <button class="nav-tab" data-tab="prayer">Prayer</button>
+  <button class="nav-tab" data-tab="morning">Morning</button>
+  <button class="nav-tab" data-tab="protocols">Protocols</button>
+  <button class="nav-tab" data-tab="notes">Notes</button>
+</nav>
+
+<!-- ═══════ SECTION 1 — ORIENTATION ═══════ -->
+<div class="section active" id="sec-orientation">
+  <div class="section-num">Section 1</div>
+  <div class="section-title">Pre-Session Orientation</div>
+  <div class="section-desc">Establish the field before beginning. Both practitioner and client must be prepared.</div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>For the Practitioner</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body">
+      <p>Before beginning, establish your own field:</p>
+      <p class="mt-1"><strong>1.</strong> Three full breaths, belly deep.</p>
+      <p><strong>2.</strong> Declare your field sealed:</p>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; margin:0.5rem 0; font-family:var(--font-serif); font-style:italic; color:var(--text-dim);">
+        "I am sealed in the Dam HaBrit. I operate as a clean channel only. All findings and clearings belong to the client's field, not mine."
+      </blockquote>
+      <p><strong>3.</strong> Connect to Guardian Host / Krystal Star / Christos-Sophia field.</p>
+      <p><strong>4.</strong> State:</p>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; margin:0.5rem 0; font-family:var(--font-serif); font-style:italic; color:var(--text-dim);">
+        "I request only truth. Every answer I receive serves the highest good of this Neshama."
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>For the Client</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body">
+      <p>Before beginning, the client speaks:</p>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; margin:0.75rem 0; font-family:var(--font-serif); font-style:italic; color:var(--text-dim); line-height:1.7;">
+        "I open myself fully to the True Father — Father of Fathers — and to the Ruach HaKodesh. I give permission for all that needs to be seen to be seen. I give permission for all that needs to be cleared to be cleared. I am willing to receive the truth and I am willing to be free."
+      </blockquote>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 2 — CHECKLIST ═══════ -->
+<div class="section" id="sec-checklist">
+  <div class="section-num">Section 2</div>
+  <div class="section-title">Muscle Testing Master Checklist</div>
+  <div class="section-desc">Test each item with a clear YES / NO baseline. Tap each circle to cycle: ✓ Clear &rarr; ✗ Active &rarr; ~ Partial &rarr; Reset</div>
+
+  <div class="summary-bar" id="summaryBar">
+    <div class="summary-stat"><span class="summary-dot clear"></span> <span id="countClear">0</span> Clear</div>
+    <div class="summary-stat"><span class="summary-dot active"></span> <span id="countActive">0</span> Active</div>
+    <div class="summary-stat"><span class="summary-dot partial"></span> <span id="countPartial">0</span> Partial</div>
+    <div class="summary-stat"><span class="summary-dot untested"></span> <span id="countUntested">0</span> Untested</div>
+  </div>
+
+  <!-- Module A -->
+  <div class="checklist-module" id="moduleA">
+    <div class="module-title">Module A — Physical Body Systems</div>
+    <div class="module-instruction">Is this system operating at full divine capacity?</div>
+    <div class="checklist-items" data-items='["Vagus Nerve","Brain Stem","Adrenal Glands","Endocrine System","Immune System","Kidneys / Renal System","Liver / Gallbladder","Heart / Pericardium","Lymphatic System","Nervous System (Parasympathetic)","Nervous System (Sympathetic)","Spinal Column","Cervical Spine (C1–C7)","Right Shoulder Joint","Right Neck / Trapezius","Jaw / TMJ","Gut-Brain Axis","DNA / Cellular Memory"]'></div>
+  </div>
+
+  <!-- Module B -->
+  <div class="checklist-module" id="moduleB">
+    <div class="module-title">Module B — Energy Body Systems</div>
+    <div class="module-instruction">Is this energy center/field operating at full divine capacity?</div>
+    <div class="checklist-items" data-items='["Root Chakra","Sacral Chakra","Solar Plexus","Heart Chakra","Throat Chakra","Third Eye","Crown Chakra","Earth Star","Soul Star","Kathara Template — Integrity","Auric Field — Sealed","Etheric Body","Emotional Body","Mental Body","Causal Body"]'></div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 3 — DIAGNOSTIC TREE ═══════ -->
+<div class="section" id="sec-diagnostic">
+  <div class="section-num">Section 2C</div>
+  <div class="section-title">Root Cause Diagnostic Tree</div>
+  <div class="section-desc">Test each branch. When you find a YES, go deeper. Tap circles to mark findings.</div>
+
+  <div id="diagnosticBranches"></div>
+</div>
+
+<!-- ═══════ SECTION 4 — PRAYER ═══════ -->
+<div class="section" id="sec-prayer">
+  <div class="section-num">Section 3</div>
+  <div class="section-title">The Sleep Deliverance Prayer</div>
+  <div class="section-desc">Spoken by or over client immediately before sleep. Tap each step to expand.</div>
+
+  <!-- Step 1 -->
+  <div class="prayer-card" onclick="togglePrayer(this)">
+    <div class="prayer-header">
+      <span class="label">Step 1 — Repentance &amp; Clearing</span>
+      <span class="tap-hint">TAP TO READ</span>
+    </div>
+    <div class="prayer-body">
+      <div class="instruction">Client speaks:</div>
+      <p>Abba — Father of Fathers — I come before You now, at the threshold of sleep, where my defenses are down and my Neshama is fully accessible.</p>
+      <p>I repent for every agreement I have made — consciously or unconsciously — that is expressing as pain in my body. I repent for every burden I picked up that was never mine to carry. I repent for every vow of suffering, smallness, or powerlessness spoken in this lifetime or any other.</p>
+      <p>I repent for every way I have rejected, suppressed, or wounded my own masculine — my capacity to initiate, to stand in authority, to take up space, to create without permission. I repent for the moments I accepted the narrative that my power was dangerous, wrong, or needed to be cut away.</p>
+      <p>I repent for every entanglement I maintained out of love that became a transfer point for another person's pain into my body. Love does not require me to absorb what is not mine. I repent for confusing the two.</p>
+      <p>Every door open in my body — I close it now. Every agreement creating physical restriction — I revoke it now. Every word spoken over me that I agreed with — I break the agreement now.</p>
+      <p class="command-text">In the name of <span class="hebrew">Yeshua HaMashiach</span> — every legal right is revoked. The <span class="hebrew">Dam HaBrit</span> is my covering.</p>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="prayer-card" onclick="togglePrayer(this)">
+    <div class="prayer-header">
+      <span class="label">Step 2 — Command</span>
+      <span class="tap-hint">TAP TO READ</span>
+    </div>
+    <div class="prayer-body">
+      <div class="instruction">Client or Practitioner speaks:</div>
+      <p class="command-text">In the name of <span class="hebrew">Yeshua HaMashiach</span> —</p>
+      <p>I address every spirit, entity, and frequency lodged in this body — specifically in the <em>[right shoulder / neck / named area]</em>.</p>
+      <p>You are operating without legal right. The repentance is complete. The door you used is closed.</p>
+      <p class="instruction">[Name specific spirits found in diagnostic — e.g., Spirit of Infirmity / Spirit of Burden / Spirit of the Castration Curse / Spirit of the Pharisees / Spirit of Witchcraft / named ancestral spirit]</p>
+      <p class="command-text">I command every one of you — OUT. Out of this tissue. Out of this nerve pathway. Out of this cellular memory. Out of this bloodline.</p>
+      <p class="command-text">Every alliance formed between you — broken NOW. Every reinforcement called — disbanded NOW. Every anchor point in the physical body — dissolved NOW by the <span class="hebrew">Cherev HaRuach</span>.</p>
+      <p>You will not transfer to another person. You will not fragment and hide in another system. You will go directly to the Heart of True Source for transmutation.</p>
+      <p class="command-text"><span class="hebrew">Tzeitzu (צְאוּ). B'Shem Yeshua HaMashiach.</span> NOW.</p>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="prayer-card" onclick="togglePrayer(this)">
+    <div class="prayer-header">
+      <span class="label">Step 3 — Cellular Command</span>
+      <span class="tap-hint">TAP TO READ</span>
+    </div>
+    <div class="prayer-body">
+      <div class="instruction">Practitioner speaks over client:</div>
+      <p>In the name of <span class="hebrew">Yeshua HaMashiach</span> — I speak to every cell in <em>[right shoulder / neck / named area]</em>:</p>
+      <p>You were created to carry light, not burden. You were created in the image of the True Father — whole, free, and pain-free.</p>
+      <p class="command-text">Every memory of pain stored in this tissue — I command you to release it now. Every trauma pattern held in the muscle fiber — release. Every fear held in the nerve pathway — release. Every ancestral imprint held in the cellular memory — rewrite now in the code of <span class="hebrew">Ahavah</span> and <span class="hebrew">Chaim</span>.</p>
+      <p class="command-text">Original divine blueprint — come forward. <span class="hebrew">Tikkun (תִּיקּוּן)</span> — complete restoration — activate now in these cells.</p>
+      <p>Vagus nerve — come to full regulation. Brainstem — come to full safety. Adrenals — rest. Kidneys — restore your Jing. Endocrine system — rebalance. Immune system — come to full authority.</p>
+      <p class="command-text">Every system — you have permission from the True Father. RESTORE. REGENERATE. RETURN to original divine design.</p>
+      <p class="command-text"><span class="hebrew">L'chaim (לְחַיּ ִים)</span>. To life. To full life.</p>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="prayer-card" onclick="togglePrayer(this)">
+    <div class="prayer-header">
+      <span class="label">Step 4 — Fill &amp; Seal</span>
+      <span class="tap-hint">TAP TO READ</span>
+    </div>
+    <div class="prayer-body">
+      <p><span class="hebrew">Ruach HaKodesh</span> — fill every space now cleared. Fill the shoulder. Fill the neck. Fill the nervous system. Fill the cellular memory. Let the client's sleep tonight be a continuation of this healing. Let every dream serve the restoration. Let the body wake tomorrow carrying less than it carried today.</p>
+      <p>Guardian Host — seal this field through the night. Krystal Star — hold the Kathara template in full integrity through sleep. <span class="hebrew">Dam HaBrit</span> — cover every cell.</p>
+      <p class="command-text"><span class="hebrew">Kadosh</span>. It is done. Sleep in peace.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 5 — MORNING ═══════ -->
+<div class="section" id="sec-morning">
+  <div class="section-num">Section 4</div>
+  <div class="section-title">Morning Integration Protocol</div>
+  <div class="section-desc">Upon waking — before checking phone, before speaking to anyone.</div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>Client Morning Declaration</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body">
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; font-family:var(--font-serif); font-style:italic; color:var(--text-dim); line-height:1.7;">
+        "Abba — I receive what was released through the night. I receive the restoration that continued while I slept. I open my eyes into freedom. I check in with my body. I give thanks for every shift — seen or unseen."
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="accordion mt-1">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>Practitioner Morning Checks</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body">
+      <p><strong>1.</strong> Re-test all items marked ✗ or ~ from the night before.</p>
+      <p class="mt-1"><strong>2.</strong> Note which cleared through sleep vs. which need additional session work.</p>
+      <p class="mt-1"><strong>3.</strong> Document any dreams — dreams during sleep deliverance often carry direct diagnostic information.</p>
+      <p class="mt-1"><strong>4.</strong> Note physical symptom level — even partial reduction is confirmation of movement.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 6 — PROTOCOLS ═══════ -->
+<div class="section" id="sec-protocols">
+  <div class="section-num">Section 5</div>
+  <div class="section-title">Special Protocols</div>
+  <div class="section-desc">Targeted protocols for specific findings from the diagnostic.</div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>5A — Mother Line Entanglement Protocol</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body" id="protocol-5a">
+      <p class="text-dim text-sm" style="margin-bottom:0.75rem;">Use when mother entanglement is confirmed as contributing factor.</p>
+      <h4 style="color:var(--gold); font-size:0.82rem; margin-bottom:0.5rem;">The 21-Day Energetic Fast from Mother</h4>
+      <p>No direct energetic engagement with mother's field for 21 days. This includes: reading her messages with emotional charge, thinking about her with longing or anger, discussing her frequently, absorbing her energy in conversation.</p>
+      <p class="mt-1">Physical contact is not necessarily prohibited — energetic engagement is what creates transfer.</p>
+      <p class="mt-1">Each day of the fast, speak:</p>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; margin:0.5rem 0; font-family:var(--font-serif); font-style:italic; color:var(--text-dim); line-height:1.7;">
+        "I love [mother's name] and I release her fully to the True Father. Her healing journey is hers. I am energetically separate, whole, and free."
+      </blockquote>
+      <h4 style="color:var(--gold); font-size:0.82rem; margin:1rem 0 0.5rem;">If the fast is broken:</h4>
+      <p>No condemnation — simply reset. Speak: <em>"I acknowledge the pull. I recommit to the fast. The 21 days continues from today."</em> Do not restart the count — continue forward.</p>
+      <h4 style="color:var(--gold); font-size:0.82rem; margin:1rem 0 0.5rem;">Daily Cord-Cutting</h4>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; margin:0.5rem 0; font-family:var(--font-serif); font-style:italic; color:var(--text-dim); line-height:1.7;">
+        "In the name of Yeshua HaMashiach — I sever every cord activated between my field and my mother's field today. Clean separation. I love her. I am separate. I am whole."
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>5B — Past Life Power Removal Curse Protocol</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body" id="protocol-5b">
+      <p class="text-dim text-sm" style="margin-bottom:0.75rem;">Use when past life power-removal curse is confirmed active.</p>
+      <h4 style="color:var(--gold); font-size:0.82rem; margin-bottom:0.5rem;">Identification Markers</h4>
+      <ul style="margin-left:1rem; margin-bottom:0.75rem; font-size:0.82rem;">
+        <li>Chronic pain in creative/power centers (lower back, hips, sacral, right shoulder as "sword arm")</li>
+        <li style="margin-top:0.3rem">Pattern of gifts being suppressed, stolen, or turned against self</li>
+        <li style="margin-top:0.3rem">Relationships where own power was diminished or punished</li>
+        <li style="margin-top:0.3rem">Deep-seated belief that full power is dangerous or will cause harm/death</li>
+      </ul>
+      <h4 style="color:var(--gold); font-size:0.82rem; margin:0.75rem 0 0.5rem;">The Revocation</h4>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; margin:0.5rem 0; font-family:var(--font-serif); font-style:italic; color:var(--text-dim); line-height:1.7;">
+        In the name of Yeshua HaMashiach — I address the castration/power-removal curse placed in the lifetime of [describe briefly if known].<br><br>
+        I break this curse at its origin point. I revoke every vow of powerlessness I made in the aftermath of that event. I forgive every soul involved — including myself.<br><br>
+        I reclaim my full creative power, my full authority, my full masculine force — purified, sanctified, and submitted to the True Father.<br><br>
+        The power taken from me in that lifetime is RESTORED now — in every cell, every dimension, every timeline.<br><br>
+        I am not that story anymore. Tikkun. Complete. B'Shem Yeshua HaMashiach.
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span>5C — Daily Maintenance Prayer</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="accordion-body" id="protocol-5c">
+      <p class="text-dim text-sm" style="margin-bottom:0.75rem;">30 seconds each morning — maintains what was cleared.</p>
+      <blockquote style="border-left:2px solid var(--gold-dim); padding-left:0.75rem; font-family:var(--font-serif); font-style:italic; color:var(--text-dim); line-height:1.7;">
+        "Abba — I seal myself today in the Dam HaBrit. I carry only what is mine. I release what is not mine. Every cord from yesterday — severed. Every door closed yesterday — remains closed. I walk in freedom today. Kadosh."
+      </blockquote>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 7 — NOTES ═══════ -->
+<div class="section" id="sec-notes">
+  <div class="section-num">Practitioner</div>
+  <div class="section-title">Session Notes Template</div>
+  <div class="section-desc">Record your findings. Data is saved locally in your browser.</div>
+
+  <div class="notes-form" id="notesForm">
+    <label>Date</label>
+    <input type="date" id="noteDate">
+
+    <label>Session Type</label>
+    <input type="text" id="noteType" placeholder="Sleep Deliverance Diagnostic">
+
+    <label>Client Initials</label>
+    <input type="text" id="noteClient" placeholder="e.g. J.C.">
+
+    <label>Primary Symptom Presenting</label>
+    <textarea id="noteSymptom" placeholder="Describe the primary symptom..."></textarea>
+
+    <label>Root Cause Identified (Top Finding)</label>
+    <textarea id="noteRoot" placeholder="Top root cause finding..."></textarea>
+
+    <label>Secondary Causes</label>
+    <textarea id="noteSecondary" placeholder="Additional causes found..."></textarea>
+
+    <label>Systems Cleared in Session</label>
+    <textarea id="noteCleared" placeholder="List systems cleared..."></textarea>
+
+    <label>Spirits Named &amp; Commanded Out</label>
+    <textarea id="noteSpirits" placeholder="Named spirits addressed..."></textarea>
+
+    <label>Alliances Broken</label>
+    <textarea id="noteAlliances" placeholder="Spirit alliances broken..."></textarea>
+
+    <label>Curses / Vows Revoked</label>
+    <textarea id="noteCurses" placeholder="Curses and vows revoked..."></textarea>
+
+    <label>Soul Ties Severed</label>
+    <textarea id="noteSoulTies" placeholder="Soul ties addressed..."></textarea>
+
+    <label>Timeline / Past Life Addressed</label>
+    <textarea id="noteTimeline" placeholder="Past life / timeline work..."></textarea>
+
+    <label>Items Still Active for Follow-Up</label>
+    <textarea id="noteFollowUp" placeholder="Items remaining for next session..."></textarea>
+
+    <label>Morning Re-Test Results</label>
+    <textarea id="noteMorning" placeholder="Results from morning re-test..."></textarea>
+
+    <label>Practitioner Observations</label>
+    <textarea id="noteObservations" placeholder="Additional observations, dreams reported, etc."></textarea>
+
+    <div style="margin-top:1.25rem; display:flex; gap:0.5rem;">
+      <button onclick="saveNotes()" style="flex:1; padding:0.7rem; background:var(--gold-glow); border:1px solid var(--gold-dim); border-radius:var(--radius); color:var(--gold); cursor:pointer; font-size:0.8rem; font-family:var(--font);">Save Notes Locally</button>
+      <button onclick="clearNotes()" style="padding:0.7rem 1rem; background:transparent; border:1px solid var(--border); border-radius:var(--radius); color:var(--text-dim); cursor:pointer; font-size:0.8rem; font-family:var(--font);">Clear</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ PROTOCOL MODAL ═══════ -->
+<div class="modal-overlay" id="protocolModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="app-footer">
+  <span class="gold">Inner Align CRQH Protocol</span><br>
+  All healing to the glory of the True Father<br>
+  This document is a living framework — update as the Ruach HaKodesh refines it
+</footer>
+
+<script>
+// ── Tab Navigation ──
+const tabs = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0 });
+  });
+});
+
+// ── Accordion ──
+function toggleAccordion(btn) {
+  btn.closest('.accordion').classList.toggle('open');
+}
+
+// ── Prayer Cards ──
+function togglePrayer(card) {
+  card.classList.toggle('open');
+}
+
+// ── Status Cycling ──
+const STATUS_CYCLE = [null, 'clear', 'active', 'partial'];
+const STATUS_SYMBOLS = { clear: '✓', active: '✗', partial: '~' };
+
+function cycleStatus(btn) {
+  const current = btn.dataset.status || '';
+  const idx = STATUS_CYCLE.indexOf(current || null);
+  const next = STATUS_CYCLE[(idx + 1) % STATUS_CYCLE.length];
+  btn.dataset.status = next || '';
+  btn.textContent = next ? STATUS_SYMBOLS[next] : '';
+
+  const item = btn.closest('.check-item');
+  if (next) {
+    item.classList.add('has-status');
+  } else {
+    item.classList.remove('has-status');
+  }
+  updateSummary();
+  saveState();
+}
+
+// ── Build Checklists ──
+function buildChecklist(container) {
+  const items = JSON.parse(container.dataset.items);
+  items.forEach((name, i) => {
+    const div = document.createElement('div');
+    div.className = 'check-item';
+    div.innerHTML = `
+      <button class="status-btn" data-status="" data-key="${container.closest('.checklist-module').id}-${i}" onclick="cycleStatus(this)"></button>
+      <div class="check-item-wrap">
+        <div class="check-label">${name}</div>
+        <textarea class="check-notes" placeholder="Notes..." rows="1" oninput="saveState()"></textarea>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+document.querySelectorAll('.checklist-items').forEach(buildChecklist);
+
+// ── Build Diagnostic Branches ──
+const BRANCHES = [
+  { num: 1, title: 'Physical / Structural', items: [
+    'Physical injury or structural misalignment present?',
+    'Postural compensation pattern active?',
+    'Referred pain from another site?',
+    'Inflammatory response active?',
+    'Nutritional deficiency contributing?'
+  ]},
+  { num: 2, title: 'Emotional / Psychological', items: [
+    'Unprocessed grief held in this area?',
+    'Suppressed anger held in this area?',
+    'Fear/dread held in this area?',
+    'Shame held in this area?',
+    'Unspoken truth creating physical tension?',
+    'Burden or responsibility not belonging to client?',
+    'Caretaking energy creating physical strain?'
+  ]},
+  { num: 3, title: 'Relational / Soul Tie', items: [
+    'Active soul tie contributing to symptom?',
+    'Mother line?', 'Father line?',
+    'Romantic/intimate partner?', 'Child?',
+    'Ancestral figure?', 'Named person?',
+    'Cord/hook from another person\'s field lodged in symptom area?',
+    'Collective field entanglement?'
+  ], protocol: { id: '5a', label: 'Open Mother Line Protocol' }},
+  { num: 4, title: 'Spiritual / Entity', items: [
+    'Spirit/entity present in symptom area?',
+    'Named spirit? (fear, rejection, infirmity, control, Jezebel, Pharisee, witchcraft…)',
+    'Unnamed spirit?', 'Collective/legion?',
+    'Strongman present? If yes — what is it?',
+    'Alliance between spirits present?',
+    'Entity anchor point in the physical symptom?'
+  ]},
+  { num: 5, title: 'Ancestral / Generational', items: [
+    'Generational pattern expressing through symptom?',
+    'Mother line ancestral pattern?',
+    'Father line ancestral pattern?',
+    'Both bloodlines contributing?',
+    'How many generations back? (test: 1, 2, 3, 5, 7, 10, further)'
+  ], protocol: { id: '5a', label: 'Open Mother Line Protocol' }},
+  { num: 6, title: 'Past Life / Timeline', items: [
+    'Past life trauma expressing in present body?',
+    'Vow made in another lifetime active now?',
+    'Curse placed in another lifetime active now?',
+    'Death trauma from another timeline lodged in this area?',
+    'Type of trauma? (physical injury, murder, persecution, betrayal, abandonment, castration/power removal, sacrifice)',
+    'Another soul involved in that timeline?',
+    'Is that soul present in current lifetime?'
+  ], protocol: { id: '5b', label: 'Open Power Removal Curse Protocol' }},
+  { num: 7, title: 'Curse / Vow / Agreement', items: [
+    'Active curse on this area?',
+    'Self-spoken?', 'Spoken by another person?',
+    'Generational curse?', 'Past life curse?',
+    'Institutional / religious curse?',
+    'Active vow creating physical restriction?',
+    'Vow of suffering?', 'Vow of smallness / powerlessness?',
+    'Vow against power / authority / creative force?',
+    'Vow made to another person?',
+    'Blood oath or covenant contributing?'
+  ], protocol: { id: '5b', label: 'Open Power Removal Curse Protocol' }},
+  { num: 8, title: 'Masculine / Feminine Architecture', items: [
+    'Masculine energy integration complete?',
+    'Distorted masculine (abusive / absent / controlling) imprinted?',
+    'Wounded masculine from father line active?',
+    'Wounded masculine from past life active?',
+    'Feminine/masculine balance in symptom area?',
+    'Right side (masculine/giving/doing) specifically affected?',
+    'Acceptance of own inner masculine complete?',
+    'Acceptance of masculine in relationship complete?'
+  ]},
+  { num: 9, title: 'Right Shoulder / Neck (Specific)', items: [
+    'Weight/burden not belonging to client being carried here?',
+    'Responsibility for another person\'s healing/salvation active?',
+    'Caretaking role creating muscular/energetic compression?',
+    'Inability to say no creating chronic tension here?',
+    'Masculine wounding specifically lodged in right shoulder?',
+    'Castration/power-removal curse active in this area?',
+    'Past-life wound — physical strike or injury to this area?',
+    'Perpetrator energy from past life still attached here?',
+    'Mother line entanglement pulling on right shoulder?',
+    'Mother\'s unprocessed grief transferred here?',
+    'Mother\'s fear transferred here?',
+    'Enmeshment cord specifically anchored here?'
+  ], protocol: { id: '5a', label: 'Open Mother Line Protocol' }}
+];
+
+const PROTOCOL_CONTENT = {
+  '5a': {
+    title: '5A — Mother Line Entanglement Protocol',
+    body: document.getElementById('protocol-5a') ? document.getElementById('protocol-5a').innerHTML : ''
+  },
+  '5b': {
+    title: '5B — Past Life Power Removal Curse Protocol',
+    body: document.getElementById('protocol-5b') ? document.getElementById('protocol-5b').innerHTML : ''
+  }
+};
+
+const branchContainer = document.getElementById('diagnosticBranches');
+BRANCHES.forEach(b => {
+  const div = document.createElement('div');
+  div.className = 'branch';
+  let itemsHtml = b.items.map((item, i) => `
+    <div class="check-item">
+      <button class="status-btn" data-status="" data-key="branch${b.num}-${i}" onclick="cycleStatus(this)"></button>
+      <div class="check-item-wrap">
+        <div class="check-label">${item}</div>
+        <textarea class="check-notes" placeholder="Notes..." rows="1" oninput="saveState()"></textarea>
+      </div>
+    </div>`).join('');
+
+  if (b.protocol) {
+    itemsHtml += `<a class="protocol-link" onclick="openProtocol('${b.protocol.id}'); event.stopPropagation();">⟡ ${b.protocol.label}</a>`;
+  }
+
+  div.innerHTML = `
+    <button class="branch-header" onclick="this.closest('.branch').classList.toggle('open')">
+      <span class="branch-num">BRANCH ${b.num}</span>
+      <span class="branch-label">${b.title}</span>
+      <span class="branch-arrow">▼</span>
+    </button>
+    <div class="branch-body">${itemsHtml}</div>`;
+  branchContainer.appendChild(div);
+});
+
+// ── Protocol Modal ──
+function openProtocol(id) {
+  const p = PROTOCOL_CONTENT[id];
+  if (!p) return;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalBody').innerHTML = p.body;
+  document.getElementById('protocolModal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('protocolModal').classList.remove('open');
+}
+document.getElementById('protocolModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// ── Summary Counter ──
+function updateSummary() {
+  const btns = document.querySelectorAll('.status-btn');
+  let c = 0, a = 0, p = 0, u = 0;
+  btns.forEach(b => {
+    const s = b.dataset.status;
+    if (s === 'clear') c++;
+    else if (s === 'active') a++;
+    else if (s === 'partial') p++;
+    else u++;
+  });
+  document.getElementById('countClear').textContent = c;
+  document.getElementById('countActive').textContent = a;
+  document.getElementById('countPartial').textContent = p;
+  document.getElementById('countUntested').textContent = u;
+}
+
+// ── Local Storage Persistence ──
+function saveState() {
+  const state = {};
+  document.querySelectorAll('.status-btn').forEach(btn => {
+    if (btn.dataset.key && btn.dataset.status) {
+      state[btn.dataset.key] = btn.dataset.status;
+    }
+  });
+  const notes = {};
+  document.querySelectorAll('.check-notes').forEach((ta, i) => {
+    if (ta.value.trim()) notes['note-' + i] = ta.value;
+  });
+  localStorage.setItem('sdd-status', JSON.stringify(state));
+  localStorage.setItem('sdd-notes', JSON.stringify(notes));
+}
+
+function loadState() {
+  try {
+    const state = JSON.parse(localStorage.getItem('sdd-status') || '{}');
+    Object.entries(state).forEach(([key, status]) => {
+      const btn = document.querySelector(`.status-btn[data-key="${key}"]`);
+      if (btn) {
+        btn.dataset.status = status;
+        btn.textContent = STATUS_SYMBOLS[status] || '';
+        if (status) btn.closest('.check-item').classList.add('has-status');
+      }
+    });
+    const notes = JSON.parse(localStorage.getItem('sdd-notes') || '{}');
+    const allNotes = document.querySelectorAll('.check-notes');
+    Object.entries(notes).forEach(([key, val]) => {
+      const idx = parseInt(key.replace('note-', ''));
+      if (allNotes[idx]) allNotes[idx].value = val;
+    });
+    updateSummary();
+  } catch(e) {}
+}
+
+// ── Session Notes ──
+function saveNotes() {
+  const fields = ['noteDate','noteType','noteClient','noteSymptom','noteRoot','noteSecondary','noteCleared','noteSpirits','noteAlliances','noteCurses','noteSoulTies','noteTimeline','noteFollowUp','noteMorning','noteObservations'];
+  const data = {};
+  fields.forEach(f => data[f] = document.getElementById(f).value);
+  localStorage.setItem('sdd-session-notes', JSON.stringify(data));
+  alert('Notes saved locally.');
+}
+function clearNotes() {
+  if (!confirm('Clear all session notes?')) return;
+  const fields = ['noteDate','noteType','noteClient','noteSymptom','noteRoot','noteSecondary','noteCleared','noteSpirits','noteAlliances','noteCurses','noteSoulTies','noteTimeline','noteFollowUp','noteMorning','noteObservations'];
+  fields.forEach(f => document.getElementById(f).value = '');
+  localStorage.removeItem('sdd-session-notes');
+}
+function loadNotes() {
+  try {
+    const data = JSON.parse(localStorage.getItem('sdd-session-notes') || '{}');
+    Object.entries(data).forEach(([k, v]) => {
+      const el = document.getElementById(k);
+      if (el) el.value = v;
+    });
+  } catch(e) {}
+}
+
+// ── Init ──
+loadState();
+loadNotes();
+</script>
+</body>
+</html>
