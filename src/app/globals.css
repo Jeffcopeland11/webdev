@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0D0A0E;
+  --color-bg-card: #161214;
+  --color-bg-card-hover: #1e191c;
+  --color-gold: #B8960C;
+  --color-gold-dim: #7a6408;
+  --color-gold-glow: rgba(184, 150, 12, 0.12);
+  --color-cream: #F0EAD6;
+  --color-text-primary: #F0EAD6;
+  --color-text-dim: #9A9A9A;
+  --color-text-muted: #4A3838;
+  --color-border: #2a2220;
+  --color-command: #7A1515;
+  --color-command-bg: rgba(122, 21, 21, 0.15);
+  --color-status-clear: #2D5A27;
+  --color-status-active: #C41E3A;
+  --color-status-partial: #8B6914;
+  --font-family-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.status-btn { transition: all 0.2s ease; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+.prayer-text p { margin-bottom: 0.75rem; }
+.prayer-text blockquote {
+  border-left: 2px solid var(--color-gold-dim);
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  color: var(--color-text-dim);
+}
+
+.command-block {
+  background: var(--color-command-bg);
+  border-left: 3px solid var(--color-command);
+  padding: 1rem;
+  border-radius: 0 8px 8px 0;
+  font-family: var(--font-family-serif);
+  color: var(--color-cream);
+  line-height: 1.7;
+}
+
+.hebrew-block {
+  text-align: center;
+  direction: rtl;
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  padding: 0.5rem 0;
+}
+
+/* Phase progress bar */
+.phase-progress {
+  display: flex;
+  gap: 2px;
+  padding: 0.5rem 1rem;
+}
+.phase-dot {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-border);
+  transition: background 0.3s;
+}
+.phase-dot.completed { background: var(--color-status-clear); }
+.phase-dot.active { background: var(--color-gold); }
+
+/* Slide-up animation for modals */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Scrollbar hide for nav */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; }
