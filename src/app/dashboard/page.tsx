@@ -131,10 +131,38 @@ export default function Dashboard() {
         {/* Quick Start */}
         <button
           onClick={() => router.push("/tools/sleep-deliverance")}
-          className="w-full mb-6 py-4 border border-gold text-gold rounded-lg text-sm tracking-wider uppercase hover:bg-gold-glow transition-colors"
+          className="w-full mb-4 py-4 border border-gold text-gold rounded-lg text-sm tracking-wider uppercase hover:bg-gold-glow transition-colors"
         >
           ✝ Start New Sleep Deliverance Session
         </button>
+
+        {/* Divine Alignment Modules */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <button
+            onClick={() => router.push("/intake")}
+            className="py-3 border border-gold-dim text-gold-dim rounded-lg text-xs tracking-wider uppercase hover:bg-gold-glow transition-colors"
+          >
+            ✦ Prayer Intake
+          </button>
+          <button
+            onClick={() => router.push("/scanner")}
+            className="py-3 border border-gold-dim text-gold-dim rounded-lg text-xs tracking-wider uppercase hover:bg-gold-glow transition-colors"
+          >
+            ✦ False-Light Scanner
+          </button>
+          <button
+            onClick={() => router.push("/library")}
+            className="py-3 border border-gold-dim text-gold-dim rounded-lg text-xs tracking-wider uppercase hover:bg-gold-glow transition-colors"
+          >
+            ✦ Protocol Library
+          </button>
+          <button
+            onClick={() => router.push("/tools/sleep-deliverance")}
+            className="py-3 border border-gold-dim text-gold-dim rounded-lg text-xs tracking-wider uppercase hover:bg-gold-glow transition-colors"
+          >
+            ✦ Prayer Generator
+          </button>
+        </div>
 
         {/* Client Directory */}
         <div className="mb-8">
